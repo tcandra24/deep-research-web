@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { startResearch } from "../api";
+import { startResearch } from "../lib/api";
 import { useAuth } from "../AuthContext";
 
 export function NewResearchForm() {

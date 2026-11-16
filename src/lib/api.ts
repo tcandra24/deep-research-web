@@ -1,5 +1,5 @@
 import { getToken } from "./auth";
-import type { PlanDecision, RunDTO, RunSummary } from "./types";
+import type { PlanDecision, RunDTO, RunSummary } from "../types";
 
 const API_URL = (import.meta.env.VITE_API_URL ?? "http://localhost:4111").replace(/\/$/, "");
 

@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { authClient } from "./auth";
-import { UnauthorizedError } from "./api";
+import { authClient } from "./lib/auth";
+import { UnauthorizedError } from "./lib/api";
 
 type AuthState = { status: "loading" } | { status: "signedOut" } | { status: "signedIn"; email: string };
 

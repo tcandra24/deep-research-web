@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { askReport } from "../api";
+import { askReport } from "../lib/api";
 import { useAuth } from "../AuthContext";
 
 type Message = { role: "user" | "bot"; text: string };

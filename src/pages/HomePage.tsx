@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { listRuns } from "../api";
+import { listRuns } from "../lib/api";
 import { useAuth } from "../AuthContext";
 import { NewResearchForm } from "../components/NewResearchForm";
 import type { RunSummary } from "../types";

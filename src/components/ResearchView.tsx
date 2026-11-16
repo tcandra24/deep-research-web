@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getRun, resumeRun, startResearch } from "../api";
+import { getRun, resumeRun, startResearch } from "../lib/api";
 import { useAuth } from "../AuthContext";
 import type { PlanDecision, RunDTO, StepStatus } from "../types";
 import { AskPanel } from "./AskPanel";

@@ -4,10 +4,9 @@ import type { PlanDecision, RunDTO, RunSummary } from "../types";
 const API_URL = (import.meta.env.VITE_API_URL ?? "http://localhost:4111").replace(/\/$/, "");
 
 export class ApiError extends Error {
-  constructor(
-    public status: number,
-    message: string,
-  ) {
+  public status: number;
+
+  constructor(status: number, message: string) {
     super(message);
     this.name = "ApiError";
   }

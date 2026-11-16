@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import { getRun, resumeRun } from "../api";
+import { Link, useNavigate } from "react-router-dom";
+import { getRun, resumeRun, startResearch } from "../api";
 import { useAuth } from "../AuthContext";
 import type { PlanDecision, RunDTO, StepStatus } from "../types";
 import { AskPanel } from "./AskPanel";
@@ -21,6 +21,7 @@ const RESUME_GRACE_MS = 20_000;
 
 export function ResearchView({ runId }: { runId: string }) {
   const { handleError } = useAuth();
+  const navigate = useNavigate();
   const [data, setData] = useState<RunDTO | null>(null);
   const [polling, setPolling] = useState(true);
   const [busy, setBusy] = useState(false);
@@ -86,6 +87,19 @@ export function ResearchView({ runId }: { runId: string }) {
     }
   }
 
+  async function restart(topic: string) {
+    setBusy(true);
+    setError(null);
+    try {
+      const newRunId = await startResearch(topic);
+      navigate(`/research/${newRunId}`);
+    } catch (err) {
+      setError(handleError(err));
+    } finally {
+      setBusy(false);
+    }
+  }
+
   if (error && !data) {
     return (
       <div>
@@ -110,6 +124,17 @@ export function ResearchView({ runId }: { runId: string }) {
         {data.status === "success" && "Selesai"}
         {data.status === "failed" && (cancelled ? "Dibatalkan" : "Berhenti karena error")}
       </p>
+
+      {data.stale && (
+        <div className="card">
+          <p style={{ margin: 0 }}>Riset ini tidak menunjukkan kemajuan selama beberapa menit dan mungkin terhenti. Server biasanya memulihkannya sendiri setelah restart. Jika tetap macet, kamu bisa memulai ulang riset dengan topik yang sama.</p>
+          <div className="row" style={{ marginTop: 12 }}>
+            <button disabled={busy} onClick={() => void restart(data.topic)}>
+              Mulai ulang riset ini
+            </button>
+          </div>
+        </div>
+      )}
 
       {data.steps.length > 0 && (
         <div className="card">

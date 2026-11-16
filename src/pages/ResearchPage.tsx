@@ -4,5 +4,8 @@ import { ResearchView } from "../components/ResearchView";
 export function ResearchPage() {
   const { runId } = useParams();
   if (!runId) return <Navigate to="/" replace />;
-  return <ResearchView runId={runId} />;
+
+  // key = runId: pindah ke riset lain (mis. setelah "Mulai ulang") membuat
+  // ResearchView dimulai dari nol, bukan memakai ulang state riset sebelumnya.
+  return <ResearchView key={runId} runId={runId} />;
 }

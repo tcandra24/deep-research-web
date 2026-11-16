@@ -25,6 +25,7 @@ export type RunDTO = {
   report?: string;
   reportId?: string;
   error?: string;
+  stale?: boolean;
 };
 
 // Ringkasan satu riset di daftar beranda.
